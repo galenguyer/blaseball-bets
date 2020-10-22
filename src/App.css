@@ -18,3 +18,14 @@ body {
     color: #8d8c8c;
     text-decoration: none;
 }
+
+.Input {
+    border: 1.2px solid grey;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+    width: 2rem;
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield;
+}
