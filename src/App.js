@@ -9,6 +9,7 @@ const url = "https://blase.nyaa.gay/api/v1/latest/streamData";
 const App = () => {
     const { data: result, error } = useSWR(url);
     const [maxBet, setMaxBet] = React.useState(100);
+    const [useSimple, setUseSimple] = React.useState(true);
 
     React.useEffect(() => {
         if (maxBet > 1000) setMaxBet(1000);
@@ -50,8 +51,15 @@ const App = () => {
                 value={maxBet}
                 onChange={(event) => setMaxBet(event.target.value)}
             ></input>
+            <label>Simple Betting: </label>
+            <input
+                className="Input"
+                type="checkbox"
+                checked={useSimple}
+                onChange={(event) => setUseSimple(event.target.checked)}
+            />
             {tomorrow.map((game) => (
-                <Game game={game} maxBet={maxBet} />
+                <Game game={game} maxBet={maxBet} useSimple={useSimple} />
             ))}
             <br />
             <div className="Comment" style={{ marginBottom: "1rem" }}>

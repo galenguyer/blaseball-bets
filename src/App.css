@@ -29,3 +29,7 @@ body {
     margin: 0;
     -moz-appearance: textfield;
 }
+
+label {
+    padding-left: 1rem;
+}

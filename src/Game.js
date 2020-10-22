@@ -6,12 +6,21 @@ const Game = (props) => {
     const homeIsFavored = game.awayOdds < game.homeOdds;
     const bestOdds = Math.round(Math.max(game.awayOdds, game.homeOdds) * 1000) / 10;
 
-    const EVMax = (2 - 355 * 10 ** -6 * Math.pow(100 * (0.77 - 0.5), 2.045)) * 0.77 - 1;
-    const EVMin = 0;
-    const EVRange = EVMax - EVMin;
+    let bet = 0;
+    if (props.useSimple) {
+        if (bestOdds >= 60) bet = Math.round(maxBet);
+        else if (bestOdds >= 57) bet = Math.round(maxBet * 0.75);
+        else if (bestOdds >= 55) bet = Math.round(maxBet * 0.5);
+        else bet = Math.round(maxBet * 0.25);
+    } else {
+        const EVMax = (2 - 355 * 10 ** -6 * Math.pow(100 * (0.77 - 0.5), 2.045)) * 0.77 - 1;
+        const EVMin = 0;
+        const EVRange = EVMax - EVMin;
 
-    const gameOddsEV = (2 - 355 * 10 ** -6 * Math.pow(100 * (bestOdds / 100 - 0.5), 2.045)) * (bestOdds / 100) - 1;
-    const bet = Math.floor(maxBet * (gameOddsEV / EVRange));
+        const gameOddsEV = (2 - 355 * 10 ** -6 * Math.pow(100 * (bestOdds / 100 - 0.5), 2.045)) * (bestOdds / 100) - 1;
+        bet = Math.floor(maxBet * (gameOddsEV / EVRange));
+    }
+
     if (bet > maxBet) bet = maxBet;
 
     return (
