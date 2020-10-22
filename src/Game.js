@@ -3,6 +3,7 @@ import React from "react";
 const Game = (props) => {
     const game = props.game;
     const maxBet = props.maxBet;
+    const playedGames = props.playedGames;
     const homeIsFavored = game.awayOdds < game.homeOdds;
     const bestOdds = Math.round(Math.max(game.awayOdds, game.homeOdds) * 1000) / 10;
 
@@ -23,12 +24,30 @@ const Game = (props) => {
 
     if (bet > maxBet) bet = maxBet;
 
+    let matchingOddsCount = 0;
+    let correctCount = 0;
+    playedGames.forEach((playedGame) => {
+        let gameOdds = Math.round(Math.max(playedGame.awayOdds, playedGame.homeOdds) * 1000) / 10;
+        if (Math.abs(gameOdds - bestOdds) <= 1) {
+            matchingOddsCount++;
+            if (
+                (playedGame.awayOdds > playedGame.homeOdds && playedGame.awayScore > playedGame.homeScore) ||
+                (playedGame.homeOdds > playedGame.awayOdds && playedGame.homeScore > playedGame.awayScore)
+            ) {
+                correctCount++;
+            }
+        }
+    });
+
+    const confidence = Math.round((correctCount / matchingOddsCount) * 100);
+
     return (
         <div className="Game">
             <p>
                 {game.awayTeamName} vs {game.homeTeamName}
                 <br />
-                {bestOdds}% in favor of <b>{homeIsFavored ? game.homeTeamName : game.awayTeamName}</b>
+                {bestOdds}% in favor of <b>{homeIsFavored ? game.homeTeamName : game.awayTeamName}</b> ({confidence}%
+                confidence)
                 <br />
                 Recommended bet: <b>{bet}</b>
             </p>

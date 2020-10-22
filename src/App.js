@@ -7,7 +7,11 @@ import "./App.css";
 const url = "https://blase.nyaa.gay/api/v1/latest/streamData";
 
 const App = () => {
-    const { data: result, error } = useSWR(url);
+    const { data: latestStreamData, error: sdError } = useSWR(url);
+    const { data: gameData, error: gError } = useSWR(
+        () => "https://api.sibr.dev/chronicler/v1/games?season=" + latestStreamData.value.games.sim.season
+    );
+
     const [maxBet, setMaxBet] = React.useState(100);
     const [useSimple, setUseSimple] = React.useState(true);
 
@@ -16,23 +20,28 @@ const App = () => {
         else if (maxBet < 0) setMaxBet(0);
     }, [maxBet]);
 
-    if (error)
+    if (sdError || gError)
         return (
             <div className="App">
-                <h1>BlaseBets</h1>
+                <h1>Wins per Win</h1>
                 <h1>An error occurred</h1>
             </div>
         );
-    if (!result)
+    if (!latestStreamData || !gameData)
         return (
             <div className="App">
-                <h1>BlaseBets</h1>
+                <h1>Wins per Win</h1>
                 <h1>Loading latest data...</h1>
             </div>
         );
 
-    const day = result.value.games.sim.day + 2;
-    const tomorrow = result.value.games.tomorrowSchedule;
+    let playedGames = [];
+    gameData.data.map((game) => {
+        if (game.endTime != null) playedGames.push(game.data);
+    });
+
+    const day = latestStreamData.value.games.sim.day + 2;
+    const tomorrow = latestStreamData.value.games.tomorrowSchedule;
 
     tomorrow.sort(function (a, b) {
         return (
@@ -59,9 +68,13 @@ const App = () => {
                 onChange={(event) => setUseSimple(event.target.checked)}
             />
             {tomorrow.map((game) => (
-                <Game game={game} maxBet={maxBet} useSimple={useSimple} />
+                <Game game={game} maxBet={maxBet} useSimple={useSimple} playedGames={playedGames} />
             ))}
             <br />
+            <div className="Comment" style={{ marginBottom: "1rem" }}>
+                "confidence" is what percentage of the time a game with similar odds (within one percentage point) was
+                won by the favored team
+            </div>
             <div className="Comment" style={{ marginBottom: "1rem" }}>
                 Created by MasterChief_John-117#1911 &nbsp;|&nbsp; Source available on{" "}
                 <a href="https://github.com/galenguyer/blaseball-bets">github!</a>
