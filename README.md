@@ -1,3 +1,11 @@
+# Blaseball Bet Calculator
+
+The simple betting algorithm is based off of [this google doc](https://docs.google.com/document/d/1oKbsrZuXxyul4VzcWcZPwvC-HfpApDd1MjA9oBw0pzE/edit#)
+
+The more complicated betting algorithm is based off [this python script](https://github.com/Cor-8558/Blaseball-Bet-Optimizer/blob/master/blaseballBetOptimizer.py)
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
