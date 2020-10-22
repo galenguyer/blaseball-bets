@@ -33,6 +33,13 @@ const App = () => {
     const day = result.value.games.sim.day + 2;
     const tomorrow = result.value.games.tomorrowSchedule;
 
+    tomorrow.sort(function (a, b) {
+        return (
+            Math.max(b.homeOdds - b.awayOdds, b.awayOdds - b.homeOdds) -
+            Math.max(a.homeOdds - a.awayOdds, a.awayOdds - a.homeOdds)
+        );
+    });
+
     return (
         <div className="App">
             <h1>BlaseBets (Day {day})</h1>
