@@ -72,8 +72,8 @@ const App = () => {
             ))}
             <br />
             <div className="Comment" style={{ marginBottom: "1rem" }}>
-                "confidence" is what percentage of the time a game with similar odds (within one percentage point) was
-                won by the favored team
+                "confidence" is what percentage of the time a game in the current season with similar odds (within one
+                percentage point) was won by the favored team
             </div>
             <div className="Comment" style={{ marginBottom: "1rem" }}>
                 Created by MasterChief_John-117#1911 &nbsp;|&nbsp; Source available on{" "}
