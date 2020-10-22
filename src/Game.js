@@ -25,8 +25,13 @@ const Game = (props) => {
 
     return (
         <div className="Game">
-            {game.awayTeamName} vs {game.homeTeamName} ({bestOdds}% in favor of{" "}
-            {homeIsFavored ? game.homeTeamName : game.awayTeamName}) [{bet}]
+            <p>
+                {game.awayTeamName} vs {game.homeTeamName}
+                <br />
+                {bestOdds}% in favor of <b>{homeIsFavored ? game.homeTeamName : game.awayTeamName}</b>
+                <br />
+                Recommended bet: <b>{bet}</b>
+            </p>
         </div>
     );
 };
