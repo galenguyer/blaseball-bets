@@ -1,1 +1,1 @@
-docker build -t blaseball-wins:latest .
+docker build -t blaseball-bets:latest .
