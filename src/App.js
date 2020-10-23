@@ -23,14 +23,14 @@ const App = () => {
     if (sdError || gError)
         return (
             <div className="App">
-                <h1>Wins per Win</h1>
+                <h1>BlaseBets</h1>
                 <h1>An error occurred</h1>
             </div>
         );
     if (!latestStreamData || !gameData)
         return (
             <div className="App">
-                <h1>Wins per Win</h1>
+                <h1>BlaseBets</h1>
                 <h1>Loading latest data...</h1>
             </div>
         );
