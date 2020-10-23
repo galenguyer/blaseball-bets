@@ -41,6 +41,19 @@ const App = () => {
     });
 
     const day = latestStreamData.value.games.sim.day + 2;
+
+    if (day > 99) {
+        return (
+            <div className="App">
+                <h1>BlaseBets</h1>
+                <h3>It looks like the season is over and there's no more bets to place!</h3>
+                <div className="Comment" style={{ marginBottom: "1rem" }}>
+                    Created by MasterChief_John-117#1911 &nbsp;|&nbsp; Source available on{" "}
+                    <a href="https://github.com/galenguyer/blaseball-bets">github!</a>
+                </div>
+            </div>
+        );
+    }
     const tomorrow = latestStreamData.value.games.tomorrowSchedule;
 
     tomorrow.sort(function (a, b) {
